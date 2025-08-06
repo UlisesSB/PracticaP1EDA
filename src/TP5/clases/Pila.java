@@ -6,6 +6,7 @@ public class Pila<T> {
 
     // Clase interna que representa un nodo de la pila
     private class Nodo {
+
         T dato;
         Nodo siguiente;
 
@@ -29,13 +30,12 @@ public class Pila<T> {
         public void setSiguiente(Nodo siguiente) {
             this.siguiente = siguiente;
         }
-        
+
     }
 
     private Nodo cima; // Referencia al nodo en la cima de la pila
 
     // ===================== MÉTODOS ADT =====================
-
     // Método estático que crea e instancia una pila vacía
     public static <T> Pila<T> crearPila() {
         return new Pila<>();
@@ -72,7 +72,6 @@ public class Pila<T> {
     }
 
     // ===================== MÉTODOS NO ADT =====================
-
     // Retorna el elemento en el fondo de la pila
     public T fondo() {
         if (esVacia()) {
