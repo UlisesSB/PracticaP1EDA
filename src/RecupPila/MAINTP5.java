@@ -103,4 +103,59 @@ public class MAINTP5 {
         Pila mayoresQue20 = pila.mayorQue(20);
         mayoresQue20.mostrarIter(); // [] (Pila vacía)
     }
+
+    public int altura(Pila p) {
+        if (p.esPilaVacia()) {
+            return 0;
+        }
+        return 1 + altura(p.pop());
+    }
+
+    public boolean igualP(Pila p1, Pila p2) {
+        if (p1.esPilaVacia() && p2.esPilaVacia()) {
+            return true;
+        }
+        if (p1.esPilaVacia() || p2.esPilaVacia()) {
+            return false;
+        }
+        if (!p1.top().equals(p2.top())) {
+            return false;
+        }
+        return igualP(p1.pop(), p2.pop());
+    }
+
+    public int contarOcurrencias(Pila p, int x) {
+        if (p.esPilaVacia()) {
+            return 0;
+        }
+
+        int cuentaResto = contarOcurrencias(p.pop(), x);
+
+        if (p.top().equals(x)) {
+            return 1 + cuentaResto;
+        } else {
+            return cuentaResto;
+        }
+    }
+
+    public boolean subpila(Pila p1, Pila p2) {
+        if (p1.esPilaVacia()) {
+            return true;     // Subpila vacía siempre está
+        }
+        if (p2.esPilaVacia()) {
+            return false;    // Si p2 se vacía antes que p1 → falso
+        }
+        if (p1.top().equals(p2.top())) {
+            return subpila(p1.pop(), p2.pop()); // Coinciden: seguir con ambos
+        } else {
+            return subpila(p1, p2.pop());       // No coinciden: avanzar p2
+        }
+    }
+
+    public boolean esPalindromo(Pila p) {
+        Pila copia = p.copiar();
+        Pila invertida = p.invertir();
+        return copia.esIgual(invertida);
+    }
+
 }

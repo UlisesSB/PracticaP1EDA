@@ -64,7 +64,7 @@ public class Pila {
             this.cima = nodoaux;
         } else {
             // Si ya hay elementos, se enlaza el nuevo y se establece como cima.
-            nodoaux.siguiente = this.cima;
+            nodoaux.setSiguiente(this.cima);
             this.cima = nodoaux;
         }
         cantidad01++;
@@ -84,7 +84,7 @@ public class Pila {
     public Pila pop() {
         if (!this.esPilaVacia()) {
             // Si tiene elementos que borrar entonces establece la cima al elemento de abajo.
-            this.cima = this.cima.siguiente;
+            this.cima = this.cima.getSiguiente();
         }
         cantidad01--;
         return this;
@@ -101,7 +101,7 @@ public class Pila {
             // Borrara el auxiliar hasta que llegue al ultimo
             nodoaux = nodoaux.getSiguiente();
         }
-        return nodoaux.dato;// Devuelve el ultimo que quedo del while
+        return nodoaux.getDato();// Devuelve el ultimo que quedo del while
     }
 
     public void mostrarIter() {
@@ -152,7 +152,7 @@ public class Pila {
         return alturaDesde(this.cima);
     }
 
-    public Integer alturaDesde(Nodo nodoaux) {
+    private Integer alturaDesde(Nodo nodoaux) {
         if (nodoaux == null) {
             // Caso base: si el nodo es null, se terminó la pila.
             return 0;
@@ -164,7 +164,7 @@ public class Pila {
 
     // Elimina todos los elementos de la pila
     public void clear() {
-        cima = null;
+        this.cima = null;
     }
 
     public Pila copiar() {
@@ -297,4 +297,22 @@ public class Pila {
         }
         return mayorQueDesde(nodo.getSiguiente(), item, resultado); // Llamada recursiva
     }
+
+    public boolean esIgual(Pila otra) {
+        return esIgualDesde(this.cima, otra.cima);
+    }
+
+    private boolean esIgualDesde(Nodo n1, Nodo n2) {
+        if (n1 == null && n2 == null) {
+            return true; // Ambas vacías: iguales
+        }
+        if (n1 == null || n2 == null) {
+            return false; // Una es vacía y la otra no: diferentes
+        }
+        if (!n1.getDato().equals(n2.getDato())) {
+            return false; // Datos distintos
+        }
+        return esIgualDesde(n1.getSiguiente(), n2.getSiguiente()); // Recurre
+    }
+
 }
